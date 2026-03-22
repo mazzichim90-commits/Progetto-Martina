@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progetto Martina - Portale Prevenzione Avanzato</title>
+    <style>
+        :root {
+            --lions-blue: #003366; --gold: #f1c40f; --danger: #e74c3c;
+            --success: #27ae60; --bg: #f4f7f6; --text: #2c3e50; --white: #ffffff;
+            --light-blue: #e0f2f1; --kahoot-blue: #45a3e5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); }
+
+        .navbar { background: var(--white); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--lions-blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo-link { font-weight: bold; color: var(--lions-blue); text-decoration: none; border: 2px solid var(--lions-blue); padding: 8px 15px; transition: 0.3s; border-radius: 5px; }
+        .logo-link:hover { background: var(--lions-blue); color: var(--gold); }
+        .martina-link { font-weight: bold; color: var(--lions-blue); text-decoration: none; border: 2px solid var(--lions-blue); padding: 8px 15px; transition: 0.3s; border-radius: 5px; }
+        .martina-link:hover { background: var(--lions-blue); color: var(--gold); }
+
+        header { background: var(--lions-blue); color: white; padding: 4rem 1rem; text-align: center; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 25px; }
+
+        .section-wrapper { margin-bottom: 120px; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .section-box { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; margin-bottom: 30px; }
+        .section-box:nth-child(even) { flex-direction: row-reverse; }
+        .text-content { flex: 1; min-width: 350px; text-align: justify; }
+        
+        .image-side { flex: 0.8; min-width: 300px; border-radius: 15px; overflow: hidden; border: 2px solid var(--lions-blue); background: #eee; align-self: center; }
+        .image-side img { width: 100%; height: auto; display: block; object-fit: contain; }
+
+        /* Grafici OMS simulati */
+        .oms-chart { background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 5px solid var(--lions-blue); clear: both; }
+        .bar-container { margin: 10px 0; background: #ddd; border-radius: 5px; position: relative; height: 25px; width: 100%; }
+        .bar { height: 100%; border-radius: 5px; display: flex; align-items: center; padding-left: 10px; color: white; font-size: 0.8rem; font-weight: bold; transition: width 1s ease-in-out; }
+        
+        /* Tabelle */
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+        .data-table th { background: var(--lions-blue); color: white; padding: 12px; }
+        .data-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+
+        .interact-box { background: var(--light-blue); padding: 30px; border-radius: 15px; margin-top: 30px; clear: both; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .quiz-option { background: white; padding: 15px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
+        .quiz-option:hover { border-color: var(--gold); }
+        .correct { background: #d4edda !important; border-color: var(--success) !important; }
+        .wrong { background: #f8d7da !important; border-color: var(--danger) !important; }
+
+        /* Bottone Kahoot Grande e Blu istituzionale */
+        .final-cta { background: var(--white); padding: 80px 20px; text-align: center; margin-top: 40px; border-top: 2px solid #eee; }
+        .btn-kahoot { 
+            display: inline-block; 
+            background-color: var(--kahoot-blue); 
+            color: white; 
+            padding: 25px 60px; 
+            text-decoration: none; 
+            font-weight: 800; 
+            font-size: 2rem; 
+            border-radius: 15px; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 10px 20px rgba(69, 163, 229, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .btn-kahoot:hover { 
+            background-color: #3582b8; 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 30px rgba(69, 163, 229, 0.5); 
+        }
+
+        footer { padding: 60px 20px; background: #2c3e50; color: white; text-align: center; }
+        .signature { line-height: 1.8; }
+        
+        @media (max-width: 768px) { 
+            .section-box, .quiz-grid { grid-template-columns: 1fr; } 
+            .btn-kahoot { font-size: 1.5rem; padding: 20px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="https://www.lionsclubs.org/it" target="_blank" class="logo-link">LIONS CLUB INTERNATIONAL</a>
+    <a href="https://www.progettomartina.it/" target="_blank" class="martina-link">PROGETTO MARTINA</a>
+</nav>
+    <style>
+    .martina-story-header {
+        background: var(--white);
+        border-left: 8px solid var(--gold);
+        padding: 30px;
+        margin: 20px auto 60px auto;
+        border-radius: 0 20px 20px 0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        max-width: 1200px;
+    }
+
+    .quote-icon {
+        color: var(--gold);
+        font-size: 3rem;
+        line-height: 0;
+        vertical-align: middle;
+        font-family: 'Georgia', serif;
+    }
+
+    .martina-quote {
+        font-size: 1.4rem;
+        font-style: italic;
+        color: var(--lions-blue);
+        margin-bottom: 20px;
+        display: block;
+        line-height: 1.4;
+    }
+
+    .martina-bio {
+        font-size: 1.05rem;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+        color: #555;
+    }
+
+    .martina-bio b {
+        color: var(--lions-blue);
+    }
+</style>
+
+<div class="container">
+    <div class="martina-story-header">
+        <span class="martina-quote">
+            <span class="quote-icon">“</span>
+            Spero che la mia storia possa servire a informare i giovani, affinché non debbano mai trovarsi nella mia situazione per mancanza di conoscenza.
+            <span class="quote-icon">”</span>
+        </span>
+        <div class="martina-bio">
+            <b>La Storia:</b> Martina era una giovane studentessa che ha combattuto con coraggio contro un tumore al seno. Durante la sua malattia, ha espresso con forza un unico grande desiderio: che i medici incontrassero i ragazzi nelle scuole per insegnare loro come <b>scoprire in tempo</b> la malattia, perché la prevenzione è l'arma più potente che abbiamo. Da questo desiderio è nato il <b>Progetto Martina</b>, che oggi raggiunge migliaia di studenti ogni anno.
+        </div>
+    </div>
+</div>
+<header>
+    <h1>SCELTE DI SALUTE: IL FUTURO È OGGI</h1>
+    <p>Portale Scientifico di Prevenzione Oncologica - Edizione 2026</p>
+</header>
+
+<div class="container">
+
+    <div class="section-wrapper">
+        <div class="section-box">
+            <div class="text-content">
+                <h2>Il Cuore del Servizio: Lions Club International</h2>
+                <p>Fondato nel 1917 da Melvin Jones a Chicago, il Lions Club International è nato con l'idea rivoluzionaria che il successo personale non è completo senza il servizio verso la propria comunità. Oggi è la più grande organizzazione di club di servizio al mondo, con oltre <b>1,4 milioni di volontari</b> attivi in più di <b>48.000 club</b> distribuiti in <b>200 paesi</b>. Il motto "We Serve" (Noi serviamo) si concretizza in cinque aree globali: vista, fame, ambiente, cancro infantile e diabete. Il Progetto Martina è un fiore all'occhiello del multidistretto italiano, creato per onorare il desiderio di una giovane donna, Martina, che colpita da un tumore al seno, chiese espressamente che i giovani vengano informati. I Lions agiscono come ponte tra la scienza medica e le scuole, investendo milioni di euro ogni anno in kit diagnostici, borse di studio per la ricerca e programmi di screening gratuiti. Essere un Lion significa mettere a disposizione professionalità e tempo per migliorare la salute pubblica globale.</p>
+            </div>
+            <div class="image-side">
+                <img src="membri lions club.jpg" alt="Membri Lions Club">
+            </div>
+        </div>
+        <div class="oms-chart">
+            <h4>Dati di Consapevolezza Progetto Martina (Studenti 16-19 anni)</h4>
+            <p>Conoscenza prevenzione prima dell'incontro:</p>
+            <div class="bar-container"><div class="bar" style="width: 25%; background: var(--danger);">25% Sanno cosa fare</div></div>
+            <p>Conoscenza prevenzione dopo l'incontro:</p>
+            <div class="bar-container"><div class="bar" style="width: 92%; background: var(--success);">92% Consapevoli</div></div>
+        </div>
+        <div class="interact-box">
+            <p><strong>Quiz: Quante sedi/club Lions esistono circa nel mondo?</strong></p>
+            <div class="quiz-grid">
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Circa 5.000 club</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Oltre 100.000 club</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'correct')">Più di 48.000 club</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Solo in Europa</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div class="section-box">
+            <div class="text-content">
+                <h2>Meccanica del Tumore: Quando il DNA fallisce</h2>
+                <p>Il cancro non è una singola malattia, ma un insieme di oltre 200 patologie caratterizzate da una crescita cellulare incontrollata. Ogni cellula del nostro corpo possiede un "manuale d'istruzioni", il DNA. Fattori esterni (come raggi UV o fumo) o errori casuali durante la duplicazione possono danneggiare geni specifici: gli <b>oncogeni</b> (che accelerano la crescita) e i <b>geni oncosoppressori</b> (che la frenano). Quando entrambi sono compromessi, la cellula diventa "immortale" e smette di rispondere all'apoptosi (morte programmata). Questo ammasso di cellule impazzite forma il tumore primario. Se le cellule riescono a penetrare nei vasi sanguigni, avviene la <b>metastasi</b>, ovvero la colonizzazione di organi distanti. La biologia moderna ci permette oggi di studiare il "profilo mutazionale" del singolo paziente: non curiamo più solo l'organo colpito, ma colpiamo la specifica mutazione genetica che alimenta quella massa.</p>
+                <p style="margin-top:10px;"><b>Cure principali:</b> Chirurgia (rimozione fisica), Chemioterapia (veleni citotossici per cellule veloci), Radioterapia (raggi ad alta energia), Immunoterapia (riattivazione dei linfociti T).</p>
+            </div>
+            <div class="image-side">
+                <img src="tumore.jpg" alt="Biologia Cellulare">
+            </div>
+        </div>
+        <table class="data-table">
+            <tr><th>Parametro</th><th>Dati 2010</th><th>Dati 2025 (Proiezioni OMS)</th></tr>
+            <tr><td>Sopravvivenza media a 5 anni</td><td>52%</td><td>68%</td></tr>
+            <tr><td>Accesso Immunoterapia</td><td>< 5% pazienti</td><td>> 45% pazienti</td></tr>
+        </table>
+    </div>
+    <style>
+    .danger-list {
+        list-style: none;
+        margin-top: 15px;
+    }
+    .danger-list li {
+        margin-bottom: 10px;
+        padding-left: 25px;
+        position: relative;
+    }
+    .danger-list li::before {
+        content: "⚠";
+        position: absolute;
+        left: 0;
+        color: var(--danger);
+        font-weight: bold;
+    }
+    .badge-danger {
+        background: var(--danger);
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="section-wrapper">
+    <div class="section-box">
+        <div class="text-content">
+            <h2>I Nemici in Tavola: I Cancerogeni Certi</h2>
+            <p>L'Agenzia Internazionale per la Ricerca sul Cancro (<b>IARC</b>), l'organismo dell'OMS che valuta i rischi oncologici, ha classificato nel <b>Gruppo 1</b> (Cancerogeni certi per l'uomo) diverse sostanze che consumiamo abitualmente. Non si tratta di sospetti, ma di evidenze scientifiche consolidate: queste molecole sono in grado di danneggiare direttamente il DNA o di favorire processi infiammatori cronici che portano alla trasformazione tumorale. La pericolosità non risiede solo nella sostanza in sé, ma spesso nei <b>metodi di conservazione</b> (come la salagione e l'affumicatura) e nei <b>metodi di cottura</b> ad alte temperature che generano composti tossici.</p>
+            
+            <ul class="danger-list">
+                <li><b>Carni Lavorate:</b> Salumi, insaccati, würstel e carni in scatola. Contengono nitriti e nitrati che nello stomaco si trasformano in nitrosammine, potenti mutageni.</li>
+                <li><b>Alcol:</b> Il consumo di etanolo è legato a 7 tipi di tumore (seno, fegato, colon, apparato digerente). L'acetaldeide prodotta dal corpo rompe le eliche del DNA.</li>
+                <li><b>Aflatossine:</b> Muffe invisibili che possono svilupparsi su cereali, noci e granaglie mal conservate, fortemente legate al tumore al fegato.</li>
+            </ul>
+
+            <div class="celeb-box">
+                <strong>Esempio Celebre: Steve Jobs.</strong> Il co-fondatore di Apple, pur avendo un tumore di origine genetica (neuroendocrino), ha acceso un enorme dibattito globale sull'importanza della nutrizione scientifica rispetto alle diete estreme e non validate, sottolineando come le scelte a tavola influenzino il decorso di ogni patologia.
+            </div>
+        </div>
+        <div class="image-side">
+            <img src="piramidecibo.jpg" alt="Cibi Cancerogeni Certi">
+        </div>
+    </div>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Alimento/Sostanza</th>
+                <th>Classificazione IARC</th>
+                <th>Rischio Principale</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Carni Processate (Salumi)</td>
+                <td><span class="badge-danger">Gruppo 1</span></td>
+                <td>Colon-retto</td>
+            </tr>
+            <tr>
+                <td>Bevande Alcoliche</td>
+                <td><span class="badge-danger">Gruppo 1</span></td>
+                <td>Fegato, Seno, Esofago</td>
+            </tr>
+            <tr>
+                <td>Carni Rosse Fresche</td>
+                <td><span>Gruppo 2A (Probabile)</span></td>
+                <td>Pancreas, Prostata</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    <div class="section-wrapper">
+        <div class="section-box">
+            <div class="text-content">
+                <h2>Nutraceutica: Il Cibo come Farmaco</h2>
+                <p>Il termine "Nutraceutica" nasce dalla fusione tra Nutrizione e Farmaceutica. Si occupa di isolare e studiare i componenti degli alimenti che hanno proprietà curative o preventive. Non si tratta di "mangiare sano" in modo generico, ma di utilizzare molecole specifiche per proteggere il genoma. Ad esempio, il <b>licopene</b> contenuto nei pomodori cotti protegge la prostata; le <b>crociere</b> (broccoli, cavoli) contengono sulforafano che attiva i processi di disintossicazione del fegato; gli <b>antociani</b> dei frutti rossi riparano i danni ossidativi cellulari. La fibra vegetale, invece, agisce meccanicamente: accelera il transito intestinale riducendo il tempo in cui le sostanze cancerogene (come i grassi animali bruciati) restano a contatto con la mucosa del colon. Una dieta corretta può prevenire fino al 30% dei casi di tumore gastrointestinale, agendo come una terapia preventiva quotidiana e naturale.</p>
+            </div>
+            <div class="image-side">
+                <img src="nutraceutica.jpg" alt="Nutraceutica">
+            </div>
+        </div>
+        <style>
+    .celeb-insight-box-nutra {
+        background: #fff9e6; 
+        border: 1px solid var(--gold); 
+        padding: 25px; 
+        border-radius: 15px; 
+        margin: 20px 0; 
+        border-left: 8px solid var(--gold);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .celeb-content h4 {
+        color: var(--lions-blue);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+    }
+
+    .celeb-content p {
+        font-style: italic;
+        color: var(--text);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .celeb-icon-nutra {
+        font-size: 2.5rem;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+        .celeb-insight-box-nutra { flex-direction: column; text-align: center; }
+    }
+</style>
+
+<div class="celeb-insight-box-nutra">
+    <div class="celeb-icon-nutra">🥗</div>
+    <div class="celeb-content">
+        <h4>Sostenitori della Nutraceutica: Da Gwyneth Paltrow al Dr. William Li</h4>
+        <p>
+            Molte celebrità di Hollywood, come <b>Gwyneth Paltrow</b> e <b>Cameron Diaz</b>, sono diventate vere ambasciatrici della nutraceutica, promuovendo l'uso di "superfood" e integratori mirati per rafforzare le difese immunitarie. Spesso collaborano con esperti come il <b>Dr. William Li</b>, autore di fama mondiale che insegna come specifici composti presenti in fragole, tè verde e noci possano "affamare" il cancro bloccando l'angiogenesi (la formazione di vasi sanguigni che nutrono il tumore). Il loro messaggio è chiaro: quello che mettiamo nel piatto è il nostro primo e più potente alleato terapeutico.
+        </p>
+    </div>
+</div>
+        <div class="interact-box">
+            <p><strong>Quiz: Qual è il ruolo delle fibre vegetali nella prevenzione del cancro al colon?</strong></p>
+            <div class="quiz-grid">
+                <div class="quiz-option" onclick="handleQuiz(this, 'correct')">Ridurre il contatto tra tossine e pareti intestinali</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Aumentare la velocità della circolazione sanguigna</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Eliminare completamente il bisogno di proteine</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Trasformare i grassi in vitamine</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div class="section-box">
+            <div class="text-content">
+                <h2>Melanoma: Il Pericolo Invisibile della Pelle</h2>
+                <p>Il melanoma è il più aggressivo dei tumori cutanei. Origina dai melanociti, le cellule che producono il pigmento (melanina). A differenza dei carcinomi basocellulari, il melanoma può diffondersi agli organi interni molto rapidamente se non individuato precocemente. Esistono vari tipi: il <b>Melanoma a diffusione superficiale</b> (il più comune), il <b>Melanoma Nodulare</b> (molto aggressivo, cresce in profondità), la <b>Lentigo Maligna</b> (comune negli anziani) e il <b>Melanoma Acrale</b> (che colpisce mani e piedi, come accadde a Bob Marley). La prevenzione primaria consiste nell'evitare scottature nell'infanzia, poiché la pelle "memorizza" il danno solare. La prevenzione secondaria si basa sulla <b>mappatura dei nei</b> e sull'autoesame mensile. Se diagnosticato allo stadio iniziale (spessore < 1mm), la sopravvivenza è vicina al 99%. Se tardivo, richiede terapie combinate pesanti.</p>
+                <p style="margin-top:10px;">
+                    <b>La Regola ABCDE:</b><br>
+                    <b>A</b>simmetria: se diviso a metà, le due parti sono diverse.<br>
+                    <b>B</b>ordi: irregolari, frastagliati o sfumati.<br>
+                    <b>C</b>olore: presenza di più sfumature (nero, marrone, rosso, bianco).<br>
+                    <b>D</b>imensioni: diametro superiore a 6 mm.<br>
+                    <b>E</b>voluzione: il neo cambia forma, colore o sanguina.
+                </p>
+            </div>
+            <div class="image-side">
+                <img src="melanoma.png" alt="Regola ABCDE">
+            </div>
+        </div>
+        <style>
+    .celeb-insight-box {
+        background: #fff9e6; 
+        border: 1px solid var(--gold); 
+        padding: 25px; 
+        border-radius: 15px; 
+        margin: 20px 0; 
+        border-left: 8px solid var(--gold);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .celeb-content h4 {
+        color: var(--lions-blue);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+    }
+
+    .celeb-content p {
+        font-style: italic;
+        color: var(--text);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .celeb-icon {
+        font-size: 2.5rem;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+        .celeb-insight-box { flex-direction: column; text-align: center; }
+    }
+</style>
+
+<div class="celeb-insight-box">
+    <div class="celeb-icon">🎤</div>
+    <div class="celeb-content">
+        <h4>Focus Celebrità: Bob Marley</h4>
+        <p>
+            La leggenda del reggae, <b>Bob Marley</b>, è scomparso a soli 36 anni a causa di un <b>melanoma acrale lentigginoso</b>. Il tumore apparve inizialmente come una macchia scura sotto l'unghia dell'alluce destro; Marley la scambiò per una ferita riportata giocando a calcio. La diagnosi tardiva permise al melanoma di diffondersi rapidamente al cervello e ai polmoni, ricordandoci che la prevenzione deve includere anche le zone meno esposte al sole come le estremità.
+        </p>
+    </div>
+</div>
+        <div class="oms-chart">
+            <h4>Tasso di Sopravvivenza a 5 anni (Melanoma) per Stadio di Diagnosi</h4>
+            <p>Diagnosi allo Stadio Iniziale (Precoci - In Situ):</p>
+            <div class="bar-container"><div class="bar" style="width: 98%; background: var(--success);">98-99% Guarigione</div></div>
+            <p>Diagnosi allo Stadio Tardivo (Avanzato - Metastatico):</p>
+            <div class="bar-container"><div class="bar" style="width: 25%; background: var(--danger);">15-25% Sopravvivenza</div></div>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div class="section-box">
+            <div class="text-content">
+                <h2>HPV: Prevenzione e Vaccino</h2>
+                <p>Il Papilloma Virus Umano (HPV) è un'infezione estremamente comune che colpisce circa l'80% delle persone sessualmente attive almeno una volta nella vita. Sebbene molti ceppi siano innocui, i tipi "ad alto rischio" (come il 16 e il 18) possono causare lesioni che evolvono in tumore della cervice uterina, della gola, dell'ano e del pene. Il virus agisce inserendo il proprio materiale genetico nelle cellule umane, costringendole a moltiplicarsi in modo anomalo. La grande vittoria della medicina moderna è il vaccino nonavalente, che protegge contro i 9 ceppi più pericolosi. La vaccinazione è raccomandata a ragazzi e ragazze tra gli 11 e i 12 anni perché è più efficace prima dell'inizio dell'attività sessuale. Accoppiato al <b>Pap-test</b> o al <b>test HPV</b>, questo vaccino ha il potenziale di eradicare completamente il tumore della cervice nel prossimo secolo.</p>
+                <p style="margin-top:10px;"><b>Trattamenti:</b> Conizzazione (asportazione locale), Isterectomia (casi gravi), Radioterapia interna (Brachiterapia).</p>
+            </div>
+            <div class="image-side">
+                <img src="hpv.jpg" alt="Prevenzione HPV">
+            </div>
+        </div>
+        <style>
+    .celeb-insight-box-hpv {
+        background: #fff9e6; 
+        border: 1px solid var(--gold); 
+        padding: 25px; 
+        border-radius: 15px; 
+        margin: 20px 0; 
+        border-left: 8px solid var(--gold);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .celeb-content h4 {
+        color: var(--lions-blue);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+    }
+
+    .celeb-content p {
+        font-style: italic;
+        color: var(--text);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .celeb-icon-hpv {
+        font-size: 2.5rem;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+        .celeb-insight-box-hpv { flex-direction: column; text-align: center; }
+    }
+</style>
+
+<div class="celeb-insight-box-hpv">
+    <div class="celeb-icon-hpv">🎗️</div>
+    <div class="celeb-content">
+        <h4>Focus Celebrità: Poonam Pandey</h4>
+        <p>
+            L'attrice e modella <b>Poonam Pandey</b> è stata al centro di una vasta campagna di sensibilizzazione globale dopo aver combattuto contro le conseguenze del <b>Papilloma Virus Umano (HPV)</b>. La sua storia, pur essendo stata oggetto di un forte dibattito mediatico nel 2024, ha avuto l'obiettivo di accendere i riflettori sulla prevenzione del tumore della cervice uterina. Oggi Poonam è una <b>sopravvissuta</b> che sottolinea costantemente l'importanza vitale del vaccino e degli screening regolari, ricordando che il cancro causato dall'HPV può essere prevenuto quasi totalmente grazie alla scienza moderna.
+        </p>
+    </div>
+</div>
+        <div class="oms-chart">
+            <h4>Impatto della Vaccinazione HPV (Casi su 100.000)</h4>
+            <p>Incidenza pre-diffusione (2010):</p>
+            <div class="bar-container"><div class="bar" style="width: 85%; background: var(--danger);">18.5 casi</div></div>
+            <p>Incidenza post-vaccino (2025):</p>
+            <div class="bar-container"><div class="bar" style="width: 15%; background: var(--success);">2.1 casi</div></div>
+        </div>
+
+        <div class="interact-box">
+            <p><strong>Quiz: Perché la vaccinazione HPV viene offerta gratuitamente a 11-12 anni?</strong></p>
+            <div class="quiz-grid">
+                <div class="quiz-option" onclick="handleQuiz(this, 'correct')">Per garantire l'immunità prima di ogni possibile contatto col virus</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Perché dopo i 13 anni il sistema immunitario smette di funzionare</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Perché è l'unico momento in cui il vaccino non ha effetti collaterali</div>
+                <div class="quiz-option" onclick="handleQuiz(this, 'wrong')">Perché si trasmette solo attraverso l'aria</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="final-cta">
+        <h2 style="margin-bottom: 20px;">Hai studiato bene?</h2>
+        <p style="margin-bottom: 40px; font-size: 1.2rem; color: #555;">Entra nella lobby e sfida i tuoi compagni nel quiz ufficiale del Progetto Martina.</p>
+        <a href="https://kahoot.it/" target="_blank" class="btn-kahoot">GIOCA SU KAHOOT</a>
+    </div>
+
+</div>
+
+<footer>
+    <div class="signature">
+        - Portale realizzato da Marco Mazzichi e Angelo Barbato -<br>
+        <strong>Progetto Martina: La prevenzione batte il cancro</strong>
+    </div>
+    <div style="margin-top: 20px; font-size: 0.8rem; color: #bdc3c7;">
+        &copy; 2026 Lions Clubs International Italy | Distretto 108
+    </div>
+</footer>
+
+<script>
+    function handleQuiz(option, result) {
+        const currentBox = option.closest('.interact-box');
+        const options = currentBox.querySelectorAll('.quiz-option');
+        options.forEach(opt => opt.classList.remove('correct', 'wrong'));
+        if (result === 'correct') {
+            option.classList.add('correct');
+        } else {
+            option.classList.add('wrong');
+            options.forEach(opt => {
+                if(opt.innerText.includes('immunità') || opt.innerText.includes('48.000') || opt.innerText.includes('contatto tra tossine')) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
