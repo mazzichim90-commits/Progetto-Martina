@@ -20,9 +20,5 @@ Il portale include approfondimenti su figure pubbliche che hanno affrontato ques
 - **HTML5/CSS3:** Struttura e layout responsive (stile Lions Club International).
 - **JavaScript:** Logica per i quiz interattivi.
 
-## Demo Live
-Puoi visualizzare il sito attivo qui: 
-[LINK-DEL-TUO-SITO-GITHUB-PAGES]
-
 ---
 *Realizzato da Marco Mazzichi e Angelo Barbato*
